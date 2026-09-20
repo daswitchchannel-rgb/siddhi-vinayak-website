@@ -20,7 +20,16 @@ body{margin:0;background:#f5f0e7;color:#123b34;font:15px Arial}header{background
 let DATA={};
 async function login(){let r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw.value})});if(r.ok){loginEl.style.display='none';dash.style.display='block';load()}else err.textContent='Invalid password'}
 const loginEl=document.getElementById('login');
-async function load(){DATA=await (await fetch('/api/data')).json();stats.innerHTML=Object.entries(DATA).map(([k,v])=>`<div class="card"><div class="count">${v.length}</div><div class="muted">${k}</div></div>`).join('');render()}
+async function load(){
+ const r=await fetch('/api/admin/data');
+ if(!r.ok){
+   location.reload();
+   return;
+ }
+ DATA=await r.json();
+ stats.innerHTML=Object.entries(DATA).map(([k,v])=>`<div class="card"><div class="count">${v.length}</div><div class="muted">${k}</div></div>`).join('');
+ render();
+}
 function tab(id,b){document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');b.classList.add('active')}
 async function post(url,obj){await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(obj)});load()}
 function addMaterial(e){e.preventDefault();post('/api/materials',{name:mn.value,category:mc.value,description:md.value});e.target.reset()}
