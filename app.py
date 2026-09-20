@@ -54,16 +54,46 @@ def logout(): session.clear(); return jsonify(ok=True)
 def auth():
     return session.get("admin",False)
 
-@app.get("/api/data")
-def data():
+@app.get("/api/catalog")
+def catalog():
     c=db()
-    out={t:[dict(x) for x in c.execute(q).fetchall()] for t,q in {
-        "materials":"SELECT * FROM materials ORDER BY id DESC",
-        "designs":"SELECT * FROM designs ORDER BY id DESC",
-        "products":"SELECT * FROM products ORDER BY id DESC",
-        "inquiries":"SELECT * FROM inquiries ORDER BY id DESC"
-    }.items()}
-    c.close(); return jsonify(out)
+    out={
+        "materials":[dict(x) for x in c.execute(
+            "SELECT * FROM materials ORDER BY id DESC"
+        ).fetchall()],
+        "designs":[dict(x) for x in c.execute(
+            "SELECT * FROM designs ORDER BY id DESC"
+        ).fetchall()],
+        "products":[dict(x) for x in c.execute(
+            "SELECT * FROM products WHERE active=1 ORDER BY id DESC"
+        ).fetchall()]
+    }
+    c.close()
+    return jsonify(out)
+
+
+@app.get("/api/admin/data")
+def admin_data():
+    if not auth():
+        return jsonify(error="login required"),401
+
+    c=db()
+    out={
+        "materials":[dict(x) for x in c.execute(
+            "SELECT * FROM materials ORDER BY id DESC"
+        ).fetchall()],
+        "designs":[dict(x) for x in c.execute(
+            "SELECT * FROM designs ORDER BY id DESC"
+        ).fetchall()],
+        "products":[dict(x) for x in c.execute(
+            "SELECT * FROM products ORDER BY id DESC"
+        ).fetchall()],
+        "inquiries":[dict(x) for x in c.execute(
+            "SELECT * FROM inquiries ORDER BY id DESC"
+        ).fetchall()]
+    }
+    c.close()
+    return jsonify(out)
 
 @app.post("/api/materials")
 def add_material():
