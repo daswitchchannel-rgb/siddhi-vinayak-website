@@ -31,9 +31,11 @@ def init():
 init()
 
 @app.get("/")
-def home(): return send_from_directory(app.static_folder,"admin.html")
-@app.get("/site")
-def site(): return send_from_directory(app.static_folder,"index.html")
+def home():
+    return send_from_directory(app.static_folder, "index.html")
+@app.get("/admin")
+def admin():
+    return send_from_directory(app.static_folder, "admin.html")
 @app.get("/uploads/<path:name>")
 def uploads(name):
     # Only serve files that exist inside the controlled upload directory.
