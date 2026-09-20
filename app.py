@@ -9,12 +9,11 @@ BASE=Path(__file__).resolve().parent
 DB=BASE/"data.db"
 UPLOAD=BASE/"uploads"; UPLOAD.mkdir(exist_ok=True)
 app=Flask(__name__, static_folder="static")
+MAX_UPLOAD_MB=int(os.environ.get("MAX_UPLOAD_MB", "50"))
 app.config["MAX_CONTENT_LENGTH"]=MAX_UPLOAD_MB*1024*1024
-app.secret_key=os.environ.get("SECRET_KEY",secrets.token_hex(32))
-ADMIN_PASSWORD=os.environ.get("ADMIN_PASSWORD","change-me")
-MAX_UPLOAD_MB=int(os.environ.get("MAX_UPLOAD_MB","50"))
+app.secret_key=os.environ.get("SECRET_KEY", secrets.token_hex(32))
+ADMIN_PASSWORD=os.environ.get("ADMIN_PASSWORD", "change-me")
 ALLOWED_EXT={".jpg",".jpeg",".png",".webp",".gif",".mp4",".webm",".mov"}
-
 def db():
     c=sqlite3.connect(DB); c.row_factory=sqlite3.Row; return c
 def init():
