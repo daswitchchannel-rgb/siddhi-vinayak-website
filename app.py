@@ -4,6 +4,7 @@ import sqlite3, os, secrets
 from werkzeug.utils import secure_filename
 from flask import send_file
 import mimetypes
+import os
 
 BASE=Path(__file__).resolve().parent
 DB=BASE/"data.db"
