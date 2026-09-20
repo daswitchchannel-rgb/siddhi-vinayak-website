@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory, session, redirect
 from pathlib import Path
 import sqlite3, os, secrets
-from psycopg2.extras import RealDictCursor
 from werkzeug.utils import secure_filename
 from flask import send_file
 import mimetypes
