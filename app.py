@@ -29,11 +29,55 @@ def db():
     return c
 def init():
     c=db()
-    c.executescript("""
-    CREATE TABLE IF NOT EXISTS materials(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL,category TEXT NOT NULL,description TEXT,created_at TEXT DEFAULT CURRENT_TIMESTAMP);
-    CREATE TABLE IF NOT EXISTS designs(id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT UNIQUE NOT NULL,title TEXT NOT NULL,material TEXT,application TEXT,description TEXT,image TEXT,video TEXT,created_at TEXT DEFAULT CURRENT_TIMESTAMP);
-    CREATE TABLE IF NOT EXISTS products(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL,code TEXT,price TEXT,description TEXT,image TEXT,active INTEGER DEFAULT 1,created_at TEXT DEFAULT CURRENT_TIMESTAMP);
-    CREATE TABLE IF NOT EXISTS inquiries(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,phone TEXT,type TEXT,material TEXT,reference TEXT,message TEXT,status TEXT DEFAULT 'new',created_at TEXT DEFAULT CURRENT_TIMESTAMP);
+      c.execute("""
+        CREATE TABLE IF NOT EXISTS materials(
+            id SERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            category TEXT NOT NULL,
+            description TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS designs(
+            id SERIAL PRIMARY KEY,
+            code TEXT UNIQUE NOT NULL,
+            title TEXT NOT NULL,
+            material TEXT,
+            application TEXT,
+            description TEXT,
+            image TEXT,
+            video TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS products(
+            id SERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            code TEXT,
+            price TEXT,
+            description TEXT,
+            image TEXT,
+            active INTEGER DEFAULT 1,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS inquiries(
+            id SERIAL PRIMARY KEY,
+            name TEXT,
+            phone TEXT,
+            type TEXT,
+            material TEXT,
+            reference TEXT,
+            message TEXT,
+            status TEXT DEFAULT 'new',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
     """)
     if c.execute("SELECT COUNT(*) n FROM materials").fetchone()["n"]==0:
         for n,cat in [("Sandstone","Stone"),("Gwalior Mint","Stone"),("Jaisalmer Yellow","Stone"),("Bansi Paharpur","Stone"),("Granite","Stone"),("Marble","Stone"),("HDHMR","Wood & Boards"),("MDF","Wood & Boards"),("WPC","Wood & Boards"),("PVC","Wood & Boards"),("Corian / Solid Surface","Solid Surface"),("ACP","Exterior"),("Aluminium","Metal"),("Brass","Metal"),("Copper","Metal")]:
