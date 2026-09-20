@@ -16,7 +16,17 @@ app.secret_key=os.environ.get("SECRET_KEY", secrets.token_hex(32))
 ADMIN_PASSWORD=os.environ.get("ADMIN_PASSWORD", "change-me")
 ALLOWED_EXT={".jpg",".jpeg",".png",".webp",".gif",".mp4",".webm",".mov"}
 def db():
-    c=sqlite3.connect(DB); c.row_factory=sqlite3.Row; return c
+    database_url = os.environ.get("DATABASE_URL")
+    if database_url:
+        import psycopg2
+        from psycopg2.extras import RealDictCursor
+        c = psycopg2.connect(database_url, sslmode="require")
+        c.cursor_factory = RealDictCursor
+        return c
+
+    c = sqlite3.connect(DB)
+    c.row_factory = sqlite3.Row
+    return c
 def init():
     c=db()
     c.executescript("""
