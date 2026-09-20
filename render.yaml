@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: siddhi-vinayak
+    runtime: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    healthCheckPath: /api/health
+    envVars:
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: MAX_UPLOAD_MB
+        value: "25"

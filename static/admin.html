@@ -1,0 +1,50 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Siddhi Vinayak Admin</title>
+<style>
+body{margin:0;background:#f5f0e7;color:#123b34;font:15px Arial}header{background:#123b34;color:#fff;padding:18px 5%;display:flex;justify-content:space-between;align-items:center}main{max-width:1200px;margin:30px auto;padding:0 5%}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 8px 30px #123b3412}h1,h2{margin-top:0}input,select,textarea{width:100%;padding:11px;margin:5px 0 10px;border:1px solid #ddd;border-radius:9px;box-sizing:border-box}button{border:0;background:#123b34;color:#fff;padding:11px 15px;border-radius:9px;cursor:pointer}.gold{background:#c79b4d;color:#102e29}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.tabs button.active{background:#c79b4d;color:#123b34}.panel{display:none}.panel.active{display:block}.item{border-top:1px solid #eee;padding:13px 0;display:flex;justify-content:space-between;gap:12px}.muted{color:#6c7773;font-size:13px}.login{max-width:420px;margin:12vh auto}.count{font-size:34px;font-weight:bold}.danger{background:#8d3c35}@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+<header><b>Siddhi Vinayak • Admin</b><button onclick="logout()">Logout</button></header>
+<main id="login" class="login card"><h1>Admin Login</h1><p class="muted">Production setup: change ADMIN_PASSWORD before deployment.</p><input id="pw" type="password" placeholder="Admin password"><button class="gold" onclick="login()">Enter Dashboard</button><p id="err"></p></main>
+<main id="dash" style="display:none">
+<div class="grid" id="stats"></div>
+<div class="tabs"><button class="active" onclick="tab('materials',this)">Materials</button><button onclick="tab('designs',this)">Design Library</button><button onclick="tab('products',this)">Products</button><button onclick="tab('inquiries',this)">Inquiries</button></div>
+<section id="materials" class="panel active card"><h2>Materials</h2><form onsubmit="addMaterial(event)"><input id="mn" placeholder="Material name" required><input id="mc" placeholder="Category" required><input id="md" placeholder="Description"><button>Add material</button></form><div id="ml"></div></section>
+<section id="designs" class="panel card"><h2>Design Library</h2><form onsubmit="addDesign(event)"><input id="dc" placeholder="Unique design code e.g. SV-STN-002" required><input id="dt" placeholder="Title" required><input id="dm" placeholder="Material"><input id="da" placeholder="Application"><input id="di" placeholder="Image URL (or upload below)">
+<label class="muted">Design image <input id="dfile" type="file" accept="image/*"></label>
+<input id="dv" placeholder="Video URL (optional)">
+<label class="muted">Design video <input id="vfile" type="file" accept="video/*"></label><textarea id="dd" placeholder="Description"></textarea><button>Add design</button></form><div id="dl"></div></section>
+<section id="products" class="panel card"><h2>Products</h2><form onsubmit="addProduct(event)"><input id="pn" placeholder="Product name" required><input id="pc" placeholder="Product code"><input id="pp" placeholder="Price / Custom quote"><input id="pi" placeholder="Image URL (or upload below)">
+<label class="muted">Product image <input id="pfile" type="file" accept="image/*"></label><textarea id="pd" placeholder="Description"></textarea><button>Add product</button></form><div id="pl"></div></section>
+<section id="inquiries" class="panel card"><h2>Customer enquiries</h2><div id="il"></div></section>
+</main>
+<script>
+let DATA={};
+async function login(){let r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw.value})});if(r.ok){loginEl.style.display='none';dash.style.display='block';load()}else err.textContent='Invalid password'}
+const loginEl=document.getElementById('login');
+async function load(){DATA=await (await fetch('/api/data')).json();stats.innerHTML=Object.entries(DATA).map(([k,v])=>`<div class="card"><div class="count">${v.length}</div><div class="muted">${k}</div></div>`).join('');render()}
+function tab(id,b){document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');b.classList.add('active')}
+async function post(url,obj){await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(obj)});load()}
+function addMaterial(e){e.preventDefault();post('/api/materials',{name:mn.value,category:mc.value,description:md.value});e.target.reset()}
+async function uploadFile(input){
+ if(!input.files[0]) return '';
+ const fd=new FormData(); fd.append('file',input.files[0]);
+ const r=await fetch('/api/upload',{method:'POST',body:fd}); if(!r.ok) return '';
+ return (await r.json()).url||'';
+}
+async function addDesign(e){
+ e.preventDefault();
+ const image=await uploadFile(dfile)||di.value;
+ const video=await uploadFile(vfile)||dv.value;
+ await post('/api/designs',{code:dc.value,title:dt.value,material:dm.value,application:da.value,image,video,description:dd.value});
+ e.target.reset()
+}
+async function addProduct(e){
+ e.preventDefault();
+ const image=await uploadFile(pfile)||pi.value;
+ await post('/api/products',{name:pn.value,code:pc.value,price:pp.value,image,description:pd.value});
+ e.target.reset()
+}
+function render(){ml.innerHTML=DATA.materials.map(x=>item(x,`<b>${x.name}</b> <span class="muted">${x.category}</span>`,'materials')).join('');dl.innerHTML=DATA.designs.map(x=>item(x,`<b>${x.code}</b> — ${x.title}<br><span class="muted">${x.material||''} ${x.application?'• '+x.application:''}</span>`,'designs')).join('');pl.innerHTML=DATA.products.map(x=>item(x,`<b>${x.name}</b> — ${x.price||''}`,'products')).join('');il.innerHTML=DATA.inquiries.map(x=>`<div class="item"><span><b>${x.name||'Customer'}</b> • ${x.phone||''}<br><span class="muted">${x.type||''} • ${x.reference||''}<br>${x.message||''}</span></span><span>${x.status}</span></div>`).join('')}
+function item(x,text,t){return `<div class="item"><span>${text}</span><button class="danger" onclick="del('${t}',${x.id})">Delete</button></div>`}
+async function del(t,id){if(confirm('Delete this item?')){await fetch('/api/'+t+'/'+id,{method:'DELETE'});load()}}
+async function logout(){await fetch('/api/logout',{method:'POST'});location.reload()}
+</script></body></html>

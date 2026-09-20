@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4efe6">
+<meta name="description" content="Siddhi Vinayak Cutting & Engraving Works — CNC cutting, engraving, architectural stone and interior fabrication.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23133c35'/><path d='M25 68L50 20l25 48H60l-4-10H44l-4 10z' fill='%23d8b36a'/></svg>">
+<title>Siddhi Vinayak | CNC • Stone • Architectural</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#123b34;--ink2:#0a2824;--gold:#c79b4d;--sand:#efe5d3;--cream:#fbf8f1;--paper:#fffdf8;--muted:#66716e;--line:#ded7ca;--white:#fff;--shadow:0 24px 70px rgba(16,46,40,.12)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink2);font-family:"DM Sans",sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}
+.topbar{background:var(--ink2);color:#fff;padding:9px 5%;font-size:12px;display:flex;justify-content:space-between;gap:15px}
+nav{position:sticky;top:0;z-index:50;background:rgba(251,248,241,.84);backdrop-filter:blur(18px);border-bottom:1px solid rgba(18,59,52,.08)}
+.navin{max-width:1280px;margin:auto;min-height:76px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;font-family:Manrope;font-weight:800;letter-spacing:-.03em}.mark{width:43px;height:43px;border-radius:14px;background:var(--ink);display:grid;place-items:center;color:var(--gold);font-weight:800;box-shadow:0 8px 25px #123b3420}.brand small{display:block;font:500 10px "DM Sans";letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.navlinks{display:flex;gap:26px;font-size:14px;font-weight:600}.navlinks a{opacity:.76}.navlinks a:hover{opacity:1;color:var(--gold)}
+.cta{border:0;border-radius:999px;background:var(--ink);color:#fff;padding:13px 19px;font-weight:700;cursor:pointer;box-shadow:0 10px 28px #123b3424}.cta.gold{background:var(--gold);color:var(--ink2)}
+.menu{display:none;background:none;border:0;font-size:25px}
+.hero{position:relative;min-height:730px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 78% 20%,#e7d3aa 0,transparent 30%),linear-gradient(135deg,#fbf8f1 0,#f1e8d8 100%)}
+.grid{position:absolute;inset:0;opacity:.25;background-image:linear-gradient(#8d806b22 1px,transparent 1px),linear-gradient(90deg,#8d806b22 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to bottom,#000,transparent)}
+.orb{position:absolute;border-radius:50%;filter:blur(1px);animation:float 8s ease-in-out infinite}.orb.a{width:300px;height:300px;right:-100px;top:80px;background:#d5b36b55}.orb.b{width:190px;height:190px;left:-70px;bottom:90px;background:#4d887b28;animation-delay:-3s}
+@keyframes float{50%{transform:translateY(-20px) scale(1.04)}}.hero-in{position:relative;z-index:2;width:min(1280px,90%);display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:60px}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:.15em;font-size:11px}.eyebrow:before{content:"";width:28px;height:2px;background:var(--gold)}
+h1,h2,h3{font-family:Manrope;margin:0;letter-spacing:-.045em}h1{font-size:clamp(48px,6vw,86px);line-height:.98;margin:18px 0 24px;max-width:850px}h1 span{color:var(--gold)}.lead{font-size:19px;line-height:1.65;color:#52615d;max-width:650px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}.ghost{border:1px solid var(--line);border-radius:999px;padding:13px 19px;font-weight:700;background:#fff9}
+.hero-card{background:#123b34;border-radius:34px;padding:25px;color:#fff;min-height:430px;position:relative;overflow:hidden;box-shadow:var(--shadow);transform:rotate(2deg);transition:.4s}.hero-card:hover{transform:rotate(0) translateY(-8px)}
+.fake-photo{height:300px;border-radius:24px;background:radial-gradient(circle at 70% 25%,#d5b36b 0 7%,transparent 8%),linear-gradient(135deg,#426d63,#102f2a 55%,#a78145);position:relative;overflow:hidden}.fake-photo:after{content:"CNC";position:absolute;right:25px;bottom:12px;font:800 90px Manrope;color:#fff1;letter-spacing:-.08em}.scan{position:absolute;left:0;right:0;height:2px;background:#d8b36a;box-shadow:0 0 22px #d8b36a;animation:scan 3s linear infinite}@keyframes scan{from{top:0}to{top:100%}}
+.cardfoot{display:flex;justify-content:space-between;align-items:end;margin-top:18px}.cardfoot b{font-size:21px}.pill{border:1px solid #ffffff2a;border-radius:999px;padding:7px 10px;font-size:11px;color:#ddd}
+.section{padding:100px 5%}.wrap{max-width:1280px;margin:auto}.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:38px}.sectionhead p{color:var(--muted);max-width:580px;line-height:1.65}.kicker{color:var(--gold);text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:.15em;margin-bottom:12px}.section h2{font-size:clamp(34px,4vw,56px)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-top:-50px;position:relative;z-index:4}.stat{background:var(--paper);padding:28px}.stat strong{font:800 38px Manrope;display:block}.stat span{color:var(--muted);font-size:13px}
+.materials{background:#123b34;color:#fff}.materials .sectionhead p{color:#b8c6c2}.filter{display:flex;gap:8px;overflow:auto;padding-bottom:8px;margin-bottom:25px}.filter button{white-space:nowrap;border:1px solid #ffffff22;background:#ffffff08;color:#dbe6e2;padding:10px 14px;border-radius:999px;cursor:pointer}.filter button.active{background:var(--gold);color:var(--ink2);border-color:var(--gold)}
+.material-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.mat{min-height:190px;border-radius:22px;padding:20px;display:flex;flex-direction:column;justify-content:end;position:relative;overflow:hidden;border:1px solid #fff1;transition:.35s}.mat:hover{transform:translateY(-7px);border-color:#d8b36a99}.mat:before{content:"";position:absolute;inset:0;background:linear-gradient(145deg,#ffffff2b,#0005);mix-blend-mode:overlay}.mat b,.mat small{position:relative}.mat small{opacity:.75;margin-top:5px}.stone{background:linear-gradient(135deg,#d5b48b,#846a4c)}.wood{background:linear-gradient(135deg,#b47b47,#4c2b1b)}.metal{background:linear-gradient(135deg,#c4c4bd,#41433f)}.surface{background:linear-gradient(135deg,#e7e0d1,#8d9089)}
+.library{background:var(--paper)}.design-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.design{border:1px solid var(--line);border-radius:25px;overflow:hidden;background:#fff;transition:.35s}.design:hover{transform:translateY(-8px);box-shadow:var(--shadow)}.design-img{height:260px;position:relative;background:repeating-linear-gradient(45deg,#183f38 0 8px,#d2ae68 8px 12px,#f2e8d5 12px 22px)}.design:nth-child(2) .design-img{background:radial-gradient(circle,#f0e3c8 0 12%,transparent 13%),repeating-conic-gradient(from 45deg,#174139 0 12deg,#d0aa62 12deg 20deg)}.design:nth-child(3) .design-img{background:linear-gradient(145deg,#ead8b9,#ad8b56);}.code{position:absolute;top:15px;left:15px;background:#123b34;color:#fff;padding:7px 10px;border-radius:999px;font-size:11px}.design-body{padding:20px}.design-body h3{font-size:21px}.design-body p{color:var(--muted);line-height:1.55;font-size:13px}.linkbtn{color:var(--gold);font-weight:800;font-size:13px}
+.services{background:#efe5d3}.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.service{background:#fbf8f1;border:1px solid #fff;border-radius:25px;padding:28px;min-height:240px;transition:.3s}.service:hover{transform:translateY(-6px);box-shadow:var(--shadow)}.icon{width:48px;height:48px;border-radius:15px;background:var(--ink);color:var(--gold);display:grid;place-items:center;font-size:21px;margin-bottom:35px}.service p{color:var(--muted);line-height:1.6}
+.products{background:#fff}.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.product{border:1px solid var(--line);border-radius:24px;overflow:hidden}.product-img{height:220px;background:linear-gradient(135deg,#174139,#d5b36b);display:grid;place-items:center;color:#fff;font:800 44px Manrope}.product-body{padding:20px}.price{font-weight:800;color:var(--ink);margin:10px 0 16px}.buyrow{display:flex;gap:8px}.smallbtn{padding:10px 13px;border:0;border-radius:10px;background:var(--ink);color:#fff;font-weight:700;cursor:pointer}.smallbtn.alt{background:#efe5d3;color:var(--ink)}
+.quote{background:var(--ink);color:#fff}.quotegrid{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;align-items:start}.quote p{color:#b9c7c3;line-height:1.7}.form{background:#fff;color:var(--ink2);border-radius:28px;padding:28px;display:grid;gap:13px}.form input,.form textarea,.form select{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:12px;background:#fff}.form textarea{min-height:120px;resize:vertical}.form .cta{width:100%}
+footer{background:#09231f;color:#d6dfdc;padding:45px 5%}.foot{max-width:1280px;margin:auto;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}.foot small{color:#91a29d}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--ink2);color:#fff;padding:14px 18px;border-radius:14px;box-shadow:var(--shadow);transform:translateY(120px);transition:.3s;z-index:100}.toast.show{transform:translateY(0)}
+.reveal{opacity:0;transform:translateY(25px);transition:.7s}.reveal.visible{opacity:1;transform:none}
+@media(max-width:900px){.navlinks{display:none}.menu{display:block}.hero{min-height:auto;padding:80px 0}.hero-in,.quotegrid{grid-template-columns:1fr}.hero-card{max-width:560px}.stats{grid-template-columns:repeat(2,1fr);margin-top:20px}.material-grid{grid-template-columns:repeat(2,1fr)}.design-grid,.service-grid,.product-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.topbar{display:none}.navin{min-height:68px}.brand{font-size:14px}.brand small{font-size:8px}h1{font-size:47px}.lead{font-size:16px}.section{padding:72px 5%}.sectionhead{display:block}.stats{grid-template-columns:1fr 1fr}.material-grid,.design-grid,.service-grid,.product-grid{grid-template-columns:1fr}.hero-card{min-height:350px}.fake-photo{height:240px}.sectionhead .cta{margin-top:12px}}
+</style>
+</head>
+<body>
+<div class="topbar"><span>Mathura • Uttar Pradesh</span><span>CNC Cutting • Engraving • Architectural Fabrication</span></div>
+<nav><div class="navin">
+<a class="brand" href="#home"><span class="mark">SV</span><span>Siddhi Vinayak<small>Cutting & Engraving Works</small></span></a>
+<div class="navlinks"><a href="#materials">Materials</a><a href="#library">Design Library</a><a href="#services">Architecture</a><a href="#products">Products</a></div>
+<button class="cta" onclick="scrollToId('quote')">Get Custom Quote</button><button class="menu" onclick="toggleMenu()">☰</button>
+</div></nav>
+<main>
+<section class="hero" id="home"><div class="grid"></div><div class="orb a"></div><div class="orb b"></div>
+<div class="hero-in"><div>
+<div class="eyebrow">Precision • Craft • Technology</div>
+<h1>Where <span>stone & material</span> becomes architecture.</h1>
+<p class="lead">CNC cutting, engraving and custom architectural fabrication for jali, jharokha, arches, pillars, elevations, interiors and bespoke designs.</p>
+<div class="actions"><button class="cta gold" onclick="scrollToId('library')">Explore Design Library</button><button class="ghost" onclick="scrollToId('quote')">Talk to an Expert →</button></div>
+</div>
+<div class="hero-card"><div class="fake-photo"><div class="scan"></div></div><div class="cardfoot"><div><b>Digital Craft Lab</b><br><span style="color:#b9c7c3;font-size:13px">CNC • CAD • Custom Fabrication</span></div><span class="pill">MATHURA / INDIA</span></div></div>
+</div></section>
+<div class="wrap"><div class="stats reveal"><div class="stat"><strong>18+</strong><span>Material families</span></div><div class="stat"><strong>CNC</strong><span>Precision fabrication</span></div><div class="stat"><strong>3D</strong><span>Design-to-cut workflow</span></div><div class="stat"><strong>1:1</strong><span>Custom design service</span></div></div></div>
+
+<section class="section materials" id="materials"><div class="wrap">
+<div class="sectionhead"><div><div class="kicker">Material intelligence</div><h2>Choose the surface.<br>Shape the detail.</h2></div><p>Explore material families used for architectural elevations, interiors, furniture details and precision engraving.</p></div>
+<div class="filter" id="filters"><button class="active" data-filter="all">All</button><button data-filter="stone">Stone</button><button data-filter="wood">Wood & Boards</button><button data-filter="surface">Solid Surface</button><button data-filter="metal">Metal</button></div>
+<div class="material-grid" id="materialGrid">
+<div class="mat stone" data-cat="stone"><b>Sandstone</b><small>Jali • Jharokha • Elevation</small></div><div class="mat stone" data-cat="stone"><b>Gwalior Mint</b><small>Architectural stonework</small></div><div class="mat stone" data-cat="stone"><b>Jaisalmer Yellow</b><small>Premium detailing</small></div><div class="mat stone" data-cat="stone"><b>Bansi Paharpur</b><small>Traditional architecture</small></div>
+<div class="mat stone" data-cat="stone"><b>Pink Stone</b><small>Carving & façade work</small></div><div class="mat stone" data-cat="stone"><b>Granite</b><small>Durable precision cutting</small></div><div class="mat stone" data-cat="stone"><b>Marble</b><small>Luxury interiors</small></div><div class="mat wood" data-cat="wood"><b>MDF / HDF / HDHMR</b><small>Panels • Furniture • Screens</small></div>
+<div class="mat wood" data-cat="wood"><b>Plywood / WPC / PVC</b><small>Interior fabrication</small></div><div class="mat surface" data-cat="surface"><b>Corian / Solid Surface</b><small>Seamless bespoke forms</small></div><div class="mat surface" data-cat="surface"><b>ACP</b><small>Exterior architectural panels</small></div><div class="mat metal" data-cat="metal"><b>Aluminium / Brass / Copper</b><small>Industrial machining & details</small></div>
+</div></div></section>
+
+<section class="section library" id="library"><div class="wrap"><div class="sectionhead"><div><div class="kicker">Design intelligence</div><h2>Design Library</h2></div><p>Each future design can carry a unique code, material, application and inquiry action — making selection simple for clients and architects.</p></div>
+<div class="design-grid" id="designGrid">
+<article class="design reveal"><div class="design-img"><span class="code">SV-CNC-001</span></div><div class="design-body"><h3>Geometric Jali</h3><p>Precision-cut screen pattern for elevation, partitions and feature walls.</p><a class="linkbtn" href="#quote" onclick="setDesign('SV-CNC-001')">Enquire with code →</a></div></article>
+<article class="design reveal"><div class="design-img"><span class="code">SV-STN-001</span></div><div class="design-body"><h3>Heritage Jharokha</h3><p>Architectural stone detailing inspired by Indian façade traditions.</p><a class="linkbtn" href="#quote" onclick="setDesign('SV-STN-001')">Enquire with code →</a></div></article>
+<article class="design reveal"><div class="design-img"><span class="code">SV-INT-001</span></div><div class="design-body"><h3>Contemporary Screen</h3><p>Modern pattern for MDF, HDHMR, WPC, PVC and solid-surface applications.</p><a class="linkbtn" href="#quote" onclick="setDesign('SV-INT-001')">Enquire with code →</a></div></article>
+</div></div></section>
+
+<section class="section services" id="services"><div class="wrap"><div class="sectionhead"><div><div class="kicker">Architectural services</div><h2>From concept to cut-file.</h2></div><p>Architect-led support for custom architectural elements, site requirements and production-ready designs.</p></div>
+<div class="service-grid"><article class="service reveal"><div class="icon">⌂</div><h3>Architectural Design</h3><p>Custom elevations, jali, arches, pillars, screens and interior elements.</p></article><article class="service reveal"><div class="icon">⌖</div><h3>Expert Site Visit</h3><p>Discuss dimensions, material, installation conditions and fabrication requirements on site.</p></article><article class="service reveal"><div class="icon">◇</div><h3>Custom Design</h3><p>Bring a reference image, drawing or idea. We convert it into a fabrication-ready direction.</p></article></div></div></section>
+
+<section class="section products" id="products"><div class="wrap"><div class="sectionhead"><div><div class="kicker">Product catalogue</div><h2>Made-to-order pieces.</h2></div><p>Products can later connect to live inventory, UPI/card payments, delivery scheduling and tracking.</p></div>
+<div class="product-grid"><article class="product reveal"><div class="product-img">JALI</div><div class="product-body"><h3>Custom CNC Jali Panel</h3><p>Material and dimensions as per requirement.</p><div class="price">Custom quote</div><div class="buyrow"><button class="smallbtn" onclick="setProduct('Custom CNC Jali Panel')">Enquire</button><button class="smallbtn alt" onclick="toast('Product checkout module is next in the backend build.')">Buy later</button></div></div></article>
+<article class="product reveal"><div class="product-img">ARCH</div><div class="product-body"><h3>Architectural Arch / Mehraab</h3><p>Stone or board-based custom fabrication.</p><div class="price">Custom quote</div><div class="buyrow"><button class="smallbtn" onclick="setProduct('Architectural Arch / Mehraab')">Enquire</button><button class="smallbtn alt" onclick="toast('Product checkout module is next in the backend build.')">Buy later</button></div></div></article>
+<article class="product reveal"><div class="product-img">ART</div><div class="product-body"><h3>Engraved Feature Panel</h3><p>Custom pattern for interiors and elevations.</p><div class="price">Custom quote</div><div class="buyrow"><button class="smallbtn" onclick="setProduct('Engraved Feature Panel')">Enquire</button><button class="smallbtn alt" onclick="toast('Product checkout module is next in the backend build.')">Buy later</button></div></div></article></div></div></section>
+
+<section class="section" id="liveCatalog" style="background:#f7f2e9">
+<div class="wrap"><div class="sectionhead"><div><div class="kicker">Live catalogue</div><h2>Latest from our workshop.</h2></div>
+<p id="catalogStatus">Loading the latest designs and products…</p></div>
+<div class="product-grid" id="liveProducts"></div></div></section>
+<section class="section quote" id="quote"><div class="wrap quotegrid"><div><div class="kicker">Start a project</div><h2>Tell us what you want to build.</h2><p>Send a requirement, design code, material preference or site-visit request. This frontend currently prepares the inquiry for WhatsApp; the next backend build will store inquiries in an admin dashboard.</p><button class="ghost" style="color:#fff;border-color:#ffffff33;margin-top:10px" onclick="openWhatsApp('Hello, I want to discuss a custom CNC / architectural project.')">WhatsApp directly →</button></div>
+<form class="form" onsubmit="submitQuote(event)"><input id="name" required placeholder="Your name"><input id="phone" required placeholder="Phone number"><select id="type"><option>Custom Quote</option><option>Expert Site Visit</option><option>Design Library Enquiry</option><option>Product Enquiry</option></select><input id="material" placeholder="Material (e.g. sandstone, MDF, marble)"><input id="reference" placeholder="Design code / product name"><textarea id="message" placeholder="Tell us dimensions, quantity, location or requirement"></textarea><button class="cta gold" type="submit">Send Enquiry on WhatsApp</button></form></div></section>
+</main>
+<footer><div class="foot"><div><b>Siddhi Vinayak Cutting & Engraving Works</b><br><small>Mathura Parikrama Marg • Behind Ramlila Ground • Mahavidya Colony • Mathura, Uttar Pradesh</small></div><div><b>9458685054</b> • <b>9457647054</b><br><small>CNC • Stone • Architectural • Interior Fabrication</small></div></div><div style="margin-top:18px"><a href="/" style="font-size:11px;color:#7f918c">Admin</a></div></footer>
+<div class="toast" id="toast"></div>
+<script>
+const WA='919458685054';
+function scrollToId(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove('show'),2800)}
+function openWhatsApp(msg){location.href='https://wa.me/'+WA+'?text='+encodeURIComponent(msg)}
+function setDesign(code){document.getElementById('reference').value=code;document.getElementById('type').value='Design Library Enquiry'}
+function setProduct(name){document.getElementById('reference').value=name;document.getElementById('type').value='Product Enquiry';scrollToId('quote');}
+async function submitQuote(e){
+ e.preventDefault();
+ const payload={name:nameEl.value,phone:phoneEl.value,type:typeEl.value,material:materialEl.value,reference:referenceEl.value,message:messageEl.value};
+ try{await fetch('/api/inquiries',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})}catch(_){}
+ const msg=`Siddhi Vinayak Enquiry%0AName: ${encodeURIComponent(payload.name)}%0APhone: ${encodeURIComponent(payload.phone)}%0AType: ${encodeURIComponent(payload.type)}%0AMaterial: ${encodeURIComponent(payload.material)}%0AReference: ${encodeURIComponent(payload.reference)}%0AMessage: ${encodeURIComponent(payload.message)}`;
+ location.href='https://wa.me/'+WA+'?text='+msg;
+}
+const nameEl=document.getElementById('name'),phoneEl=document.getElementById('phone'),typeEl=document.getElementById('type'),materialEl=document.getElementById('material'),referenceEl=document.getElementById('reference'),messageEl=document.getElementById('message');
+async function loadLiveCatalog(){
+ try{
+  const r=await fetch('/api/data'); if(!r.ok) throw new Error();
+  const d=await r.json();
+  const mg=document.getElementById('materialGrid');
+  if(d.materials?.length){
+   mg.innerHTML=d.materials.map((m,i)=>`<div class="mat ${['stone','wood','surface','metal'][i%4]}" data-cat="${(m.category||'all').toLowerCase().replace(/[^a-z]/g,'')}"><b>${m.name}</b><small>${m.description||m.category||'Custom fabrication'}</small></div>`).join('');
+  }
+  const dg=document.getElementById('designGrid');
+  if(d.designs?.length){
+   dg.innerHTML=d.designs.map(x=>`<article class="design reveal"><div class="design-img" style="${x.image?`background-image:url('${x.image}');background-size:cover;background-position:center`:''}"><span class="code">${x.code}</span></div><div class="design-body"><h3>${x.title}</h3><p>${x.description||''}</p><a class="linkbtn" href="#quote" onclick="setDesign('${x.code}')">Enquire with code →</a></div></article>`).join('');
+   document.querySelectorAll('.reveal').forEach(x=>io.observe(x));
+  }
+  const pg=document.getElementById('liveProducts');
+  pg.innerHTML=(d.products||[]).slice(0,6).map(x=>`<article class="product reveal"><div class="product-img" ${x.image?`style="background-image:url('${x.image}');background-size:cover;background-position:center"`:''}>${x.image?'':(x.name||'PRODUCT').slice(0,8).toUpperCase()}</div><div class="product-body"><h3>${x.name}</h3><p>${x.description||''}</p><div class="price">${x.price||'Custom quote'}</div><div class="buyrow"><button class="smallbtn" onclick="setProduct('${String(x.name).replace(/'/g,"\\'")}')">Enquire</button></div></div></article>`).join('');
+  document.getElementById('catalogStatus').textContent=`Live catalogue connected • ${d.designs.length} designs • ${d.products.length} products • ${d.materials.length} materials`;
+ }catch(_){document.getElementById('catalogStatus').textContent='Preview mode — the live catalogue appears automatically when hosted with the V4 backend.'}
+}
+loadLiveCatalog();
+document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');const f=b.dataset.filter;document.querySelectorAll('.mat').forEach(x=>x.style.display=(f==='all'||x.dataset.cat===f)?'flex':'none')});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});document.querySelectorAll('.reveal').forEach(x=>io.observe(x));
+function toggleMenu(){const n=document.querySelector('.navlinks');n.style.display=n.style.display==='flex'?'none':'flex';n.style.position='absolute';n.style.top='68px';n.style.left='0';n.style.right='0';n.style.padding='20px';n.style.background='var(--cream)';n.style.flexDirection='column'}
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body></html>
