@@ -80,6 +80,52 @@ def init():
         sql = qmarks("INSERT INTO materials(name,category) VALUES(?,?)")
         for name, category in items:
             c.execute(sql, (name, category))
+    # Keep the full business material catalogue present even when the database already contains rows.
+    items = [
+        ("Sandstone","Stone","Jali, jharokha, arches, pillars and elevations"),
+        ("Gwalior Mint","Stone","Architectural stone detailing and CNC work"),
+        ("Jaisalmer Yellow","Stone","Premium architectural and decorative stone"),
+        ("Bansi Paharpur","Stone","Traditional Rajasthani architectural elements"),
+        ("Pink Stone","Stone","Carving, jali and façade detailing"),
+        ("Granite","Stone","Durable precision cutting and engraving"),
+        ("Marble","Stone","Luxury interiors, panels and custom detailing"),
+        ("HDHMR","Wood & Boards","Furniture, partitions and CNC screens"),
+        ("HDF","Wood & Boards","Detailed interior panels and components"),
+        ("MDF","Wood & Boards","Decorative CNC patterns and furniture parts"),
+        ("Plywood","Wood & Boards","Custom interior fabrication"),
+        ("WPC","Wood & Boards","Moisture-resistant decorative and practical panels"),
+        ("PVC","Wood & Boards","Lightweight decorative panels and screens"),
+        ("Corian / Solid Surface","Solid Surface","Seamless bespoke forms and interior details"),
+        ("ACP","Exterior","Exterior façade and elevation fabrication"),
+        ("Aluminium","Metal","Precision industrial cutting and machining"),
+        ("Brass","Metal","Decorative and precision metal components"),
+        ("Copper","Metal","Decorative and industrial fabrication")]
+    check = qmarks("SELECT 1 FROM materials WHERE name=? LIMIT 1")
+    addm = qmarks("INSERT INTO materials(name,category,description) VALUES(?,?,?)")
+    for name, category, description in items:
+        if c.execute(check, (name,)).fetchone() is None:
+            c.execute(addm, (name, category, description))
+
+    # Seed a useful starting Design Library and Products catalogue once.
+    if c.execute("SELECT COUNT(*) AS n FROM designs").fetchone()["n"] == 0:
+        design_sql = qmarks("INSERT INTO designs(code,title,material,application,description,image,video) VALUES(?,?,?,?,?,?,?)")
+        designs = [
+            ("SV-GAL-001","Stone Jali / Carved Panel","Sandstone / Stone","Jali / Elevation","Architectural stone detailing for screens, elevations and interiors.","/static/gallery/stone-jali.webp",""),
+            ("SV-GAL-002","CNC Architectural Screen","MDF / HDHMR / WPC","Interior Screen","Precision-cut architectural detail for contemporary spaces.","/static/gallery/cnc-screen.webp",""),
+            ("SV-STN-001","Heritage Jharokha","Sandstone / Bansi Paharpur","Architecture","Traditional architectural detailing for façades and entrances.","",""),
+            ("SV-INT-001","Contemporary Feature Panel","MDF / HDHMR","Interior","Custom engraved panel for feature walls and furniture.","","")]
+        for row in designs:
+            c.execute(design_sql, row)
+
+    if c.execute("SELECT COUNT(*) AS n FROM products").fetchone()["n"] == 0:
+        product_sql = qmarks("INSERT INTO products(name,code,price,description,image) VALUES(?,?,?,?,?)")
+        products = [
+            ("Custom CNC Jali Panel","SV-PROD-001","Custom quote","Stone, MDF, HDHMR, WPC or PVC panel sized to project requirements.","/static/gallery/stone-jali.webp"),
+            ("Architectural Arch / Mehraab","SV-PROD-002","Custom quote","Custom architectural arch or mehraab in stone or board material.",""),
+            ("Engraved Feature Panel","SV-PROD-003","Custom quote","Decorative CNC engraving for interiors, furniture and feature walls.","/static/gallery/cnc-screen.webp")]
+        for row in products:
+            c.execute(product_sql, row)
+
     c.commit()
     c.close()
 
