@@ -19,12 +19,7 @@ def db():
     database_url = os.environ.get("DATABASE_URL")
     if database_url:
         import psycopg2
-        from psycopg2.extras import RealDictCursor
-        c = psycopg2.connect(
-    database_url,
-    sslmode="require",
-    cursor_factory=RealDictCursor
-)
+        c = psycopg2.connect(database_url, sslmode="require")
 return c
     c = sqlite3.connect(DB)
     c.row_factory = sqlite3.Row
@@ -83,7 +78,7 @@ def init():
     """)
     if c.execute("SELECT COUNT(*) n FROM materials").fetchone()["n"]==0:
         for n,cat in [("Sandstone","Stone"),("Gwalior Mint","Stone"),("Jaisalmer Yellow","Stone"),("Bansi Paharpur","Stone"),("Granite","Stone"),("Marble","Stone"),("HDHMR","Wood & Boards"),("MDF","Wood & Boards"),("WPC","Wood & Boards"),("PVC","Wood & Boards"),("Corian / Solid Surface","Solid Surface"),("ACP","Exterior"),("Aluminium","Metal"),("Brass","Metal"),("Copper","Metal")]:
-            c.execute("INSERT INTO materials(name,category) VALUES(?,?)",(n,cat))
+            c.execute("INSERT INTO materials(name,category) VALUES(%s,%s)",(n,cat))
     c.commit(); c.close()
 init()
 
@@ -155,13 +150,13 @@ def admin_data():
 @app.post("/api/materials")
 def add_material():
     if not auth(): return jsonify(error="login required"),401
-    x=request.json;c=db();c.execute("INSERT INTO materials(name,category,description) VALUES(?,?,?)",(x["name"],x["category"],x.get("description","")));c.commit();c.close();return jsonify(ok=True)
+    x=request.json;c=db();c.execute("INSERT INTO materials(name,category,description) VALUES(%s,%s,%s)",(x["name"],x["category"],x.get("description","")));c.commit();c.close();return jsonify(ok=True)
 
 @app.post("/api/designs")
 def add_design():
     if not auth(): return jsonify(error="login required"),401
     x=request.json;c=db()
-    try:c.execute("INSERT INTO designs(code,title,material,application,description,image,video) VALUES(?,?,?,?,?,?,?)",(x["code"],x["title"],x.get("material",""),x.get("application",""),x.get("description",""),x.get("image",""),x.get("video","")));c.commit()
+    try:c.execute("INSERT INTO designs(code,title,material,application,description,image,video) VALUES(%s,%s,%s,%s,%s,%s,%s)",(x["code"],x["title"],x.get("material",""),x.get("application",""),x.get("description",""),x.get("image",""),x.get("video","")));c.commit()
     except sqlite3.IntegrityError:return jsonify(error="Design code already exists"),409
     finally:c.close()
     return jsonify(ok=True)
@@ -169,11 +164,11 @@ def add_design():
 @app.post("/api/products")
 def add_product():
     if not auth(): return jsonify(error="login required"),401
-    x=request.json;c=db();c.execute("INSERT INTO products(name,code,price,description,image) VALUES(?,?,?,?,?)",(x["name"],x.get("code",""),x.get("price","Custom quote"),x.get("description",""),x.get("image","")));c.commit();c.close();return jsonify(ok=True)
+    x=request.json;c=db();c.execute("INSERT INTO products(name,code,price,description,image) VALUES(%s,%s,%s,%s,%s)",(x["name"],x.get("code",""),x.get("price","Custom quote"),x.get("description",""),x.get("image","")));c.commit();c.close();return jsonify(ok=True)
 
 @app.post("/api/inquiries")
 def inquiry():
-    x=request.json;c=db();c.execute("INSERT INTO inquiries(name,phone,type,material,reference,message) VALUES(?,?,?,?,?,?)",(x.get("name"),x.get("phone"),x.get("type"),x.get("material"),x.get("reference"),x.get("message")));c.commit();c.close();return jsonify(ok=True)
+    x=request.json;c=db();c.execute("INSERT INTO inquiries(name,phone,type,material,reference,message) VALUES(%s,%s,%s,%s,%s,%s)",(x.get("name"),x.get("phone"),x.get("type"),x.get("material"),x.get("reference"),x.get("message")));c.commit();c.close();return jsonify(ok=True)
 
 @app.post("/api/upload")
 def upload():
@@ -191,7 +186,7 @@ def upload():
 @app.delete("/api/<table>/<int:item_id>")
 def delete(table,item_id):
     if not auth() or table not in {"materials","designs","products"}: return jsonify(error="not allowed"),403
-    c=db();c.execute(f"DELETE FROM {table} WHERE id=?",(item_id,));c.commit();c.close();return jsonify(ok=True)
+    c=db();c.execute(f"DELETE FROM {table} WHERE id=%s",(item_id,));c.commit();c.close();return jsonify(ok=True)
 
 
 @app.get("/api/health")
