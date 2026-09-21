@@ -138,4 +138,50 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.targe
 function toggleMenu(){const n=document.querySelector('.navlinks');n.style.display=n.style.display==='flex'?'none':'flex';n.style.position='absolute';n.style.top='68px';n.style.left='0';n.style.right='0';n.style.padding='20px';n.style.background='var(--cream)';n.style.flexDirection='column'}
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
-</body></html>
+
+<style>
+#svGallery{padding:72px 20px;background:#f7f3ea;color:#183b35}
+#svGallery .sv-wrap{max-width:1200px;margin:auto}
+#svGallery h2{font-size:clamp(30px,5vw,54px);margin:0 0 10px}
+#svGallery .sv-sub{opacity:.75;margin-bottom:24px}
+.sv-filters{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 28px}
+.sv-filter{border:1px solid #b7b1a4;background:#fff;border-radius:999px;padding:9px 15px;cursor:pointer}
+.sv-filter.active{background:#183b35;color:#fff;border-color:#183b35}
+.sv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.sv-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.08)}
+.sv-card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.sv-card-body{padding:14px}
+.sv-card-title{font-weight:700}.sv-code{font-size:12px;opacity:.6;margin-top:4px}.sv-cat{font-size:13px;margin-top:7px;opacity:.75}
+</style>
+<section id="svGallery">
+ <div class="sv-wrap">
+  <h2>Material-wise Product Gallery</h2>
+  <div class="sv-sub">Siddhi Vinayak — CNC cutting, engraving & architectural work</div>
+  <div id="svFilters" class="sv-filters"></div>
+  <div id="svGrid" class="sv-grid"></div>
+ </div>
+</section>
+<script>
+(async function(){
+ const root="/static/gallery/";
+ const res=await fetch(root+"gallery.json",{cache:"no-store"});
+ if(!res.ok) return;
+ const items=await res.json();
+ const cats=[...new Set(items.map(x=>x.category))];
+ const filters=document.getElementById("svFilters"), grid=document.getElementById("svGrid");
+ function render(cat){
+   grid.innerHTML=items.filter(x=>cat==="All"||x.category===cat).map(x=>`
+    <article class="sv-card">
+      <img src="${x.src}" alt="${x.title} — ${x.category}" loading="lazy">
+      <div class="sv-card-body"><div class="sv-card-title">${x.title}</div><div class="sv-code">${x.code}</div><div class="sv-cat">${x.category}</div></div>
+    </article>`).join("");
+   [...filters.children].forEach(b=>b.classList.toggle("active",b.dataset.cat===cat));
+ }
+ filters.innerHTML=["All",...cats].map(c=>`<button class="sv-filter${c==="All"?" active":""}" data-cat="${c}">${c}</button>`).join("");
+ filters.addEventListener("click",e=>{if(e.target.matches(".sv-filter"))render(e.target.dataset.cat)});
+ render("All");
+})().catch(()=>{});
+</script>
+
+</body>
+</html>
