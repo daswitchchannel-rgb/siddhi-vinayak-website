@@ -20,10 +20,12 @@ def db():
     if database_url:
         import psycopg2
         from psycopg2.extras import RealDictCursor
-        c = psycopg2.connect(database_url, sslmode="require")
-        c.cursor_factory = RealDictCursor
-        return c
-
+        c = psycopg2.connect(
+    database_url,
+    sslmode="require",
+    cursor_factory=RealDictCursor
+)
+return c
     c = sqlite3.connect(DB)
     c.row_factory = sqlite3.Row
     return c
