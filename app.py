@@ -112,7 +112,6 @@ def init():
         designs = [
             ("SV-GAL-001","Stone Jali / Carved Panel","Sandstone / Stone","Jali / Elevation","Architectural stone detailing for screens, elevations and interiors.","/static/gallery/stone-jali.webp",""),
             ("SV-GAL-002","CNC Architectural Screen","MDF / HDHMR / WPC","Interior Screen","Precision-cut architectural detail for contemporary spaces.","/static/gallery/cnc-screen.webp",""),
-            ("SV-STN-001","Heritage Jharokha","Sandstone / Bansi Paharpur","Architecture","Traditional architectural detailing for façades and entrances.","",""),
             ("SV-INT-001","Contemporary Feature Panel","MDF / HDHMR","Interior","Custom engraved panel for feature walls and furniture.","","")]
         for row in designs:
             c.execute(design_sql, row)
