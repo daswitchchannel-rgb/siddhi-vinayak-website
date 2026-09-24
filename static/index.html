@@ -88,11 +88,11 @@ function makeTabs(el,onClick){
  el.innerHTML=Object.keys(categoryLabels).map((k,i)=>'<button class="tab '+(i===0?"active":"")+'" data-cat="'+k+'">'+categoryLabels[k]+'</button>').join("");
  el.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{el.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");onClick(b.dataset.cat)}));
 }
-fetch("/static/gallery/gallery.json").then(r=>r.json()).then(data=>{
+fetch("https://raw.githubusercontent.com/daswitchchannel-rgb/siddhi-vinayak-website/main/static/gallery/gallery.json").then(r=>r.json()).then(data=>{
  gallery=data.filter(x=>x&&x.src);
  const byCat=k=>gallery.filter(x=>categoryOf(x.src)===k);
  makeTabs(document.getElementById("groupTabs"),cat=>{
-   const items=byCat(cat);document.getElementById("materialPhotos").innerHTML=items.slice(0,10).map(x=>'<img src="'+x.src+'" alt="'+categoryLabels[cat]+'" loading="lazy">').join("");
+   const items=byCat(cat);document.getElementById("materialPhotos").innerHTML=items.slice(0,10).map(x=>'<img src="'+asset(x.src)+'" alt="'+categoryLabels[cat]+'" loading="lazy">').join("");
    document.getElementById("materialCaption").textContent=categoryLabels[cat]+" — photo reference set";
  });
  document.getElementById("groupTabs").querySelector(".tab")?.click();
