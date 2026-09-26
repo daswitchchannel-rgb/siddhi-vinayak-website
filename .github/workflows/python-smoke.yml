@@ -10,4 +10,4 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m py_compile app.py architecture_engine.py architecture_routes.py gis_masterplan.py
+      - run: python -m py_compile app.py architecture_engine.py architecture_routes.py gis_masterplan.py cadastral_zoning.py
