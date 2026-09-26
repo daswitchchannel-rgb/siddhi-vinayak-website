@@ -16,6 +16,20 @@ def _far_band(area):
     if area < 1200: return 1.50,2.50
     return 1.25,2.50
 
+def _telescopic_floor_area(area, bands):
+    remaining=area
+    total=0.0
+    lower=0.0
+    for upper, far in bands:
+        take=min(remaining, upper-lower)
+        if take>0:
+            total += take*far
+            remaining -= take
+        lower=upper
+        if remaining<=0:
+            break
+    return total
+
 def residential_rules(plot_area_sqm,use_type="single",built_up_area=True,road_width_m=None,frontage_m=None,depth_m=None):
     msgs=[]
     if plot_area_sqm<=0:return RuleResult(False,["Plot area must be greater than zero."],{})
@@ -43,7 +57,11 @@ def residential_rules(plot_area_sqm,use_type="single",built_up_area=True,road_wi
         env["area_sqm"]=round(env["width_m"]*env["depth_m"],3)
         env["coverage_pct"]=round(100*env["area_sqm"]/plot_area_sqm,3)
     base_far,max_far=band
-    return RuleResult(road_ok,msgs,{"plot_area_sqm":plot_area_sqm,"use_type":"single_unit" if single else "multi_unit","built_up_area":built_up_area,"road_width_m":road_width_m,"minimum_road_width_m":min_road,"road_width_ok":road_ok,"max_height_m":max_height,"max_storeys":max_floors,"stilt":stilt,"base_far":base_far,"max_permissible_far":max_far,"base_floor_area_sqm":round(plot_area_sqm*base_far,3),"max_floor_area_sqm":round(plot_area_sqm*max_far,3),"setbacks_m":sb,"envelope":env,"professional_review_flags":["Verify exact Master Plan/Zonal Plan land use.","Check protected monument/heritage, airport funnel and other statutory height controls.","Check approved layout, lease/title conditions and road widening.","Preliminary design/compliance aid only; not statutory approval."]})
+    base_bands=[(35,2.0),(150,2.0),(300,1.8),(500,1.75),(1200,1.5),(float("inf"),1.25)]
+    max_bands=[(35,2.25),(150,2.25),(300,2.5),(500,2.5),(1200,2.5),(float("inf"),2.5)]
+    telescopic_base=_telescopic_floor_area(plot_area_sqm,base_bands) if plot_area_sqm>=35 else plot_area_sqm*2.0
+    telescopic_max=_telescopic_floor_area(plot_area_sqm,max_bands) if plot_area_sqm>=35 else plot_area_sqm*2.25
+    return RuleResult(road_ok,msgs,{"plot_area_sqm":plot_area_sqm,"use_type":"single_unit" if single else "multi_unit","built_up_area":built_up_area,"road_width_m":road_width_m,"minimum_road_width_m":min_road,"road_width_ok":road_ok,"max_height_m":max_height,"max_storeys":max_floors,"stilt":stilt,"base_far":base_far,"max_permissible_far":max_far,"base_floor_area_sqm":round(telescopic_base,3),"max_floor_area_sqm":round(telescopic_max,3),"setbacks_m":sb,"envelope":env,"professional_review_flags":["Verify exact Master Plan/Zonal Plan land use.","Check protected monument/heritage, airport funnel and other statutory height controls.","Check approved layout, lease/title conditions and road widening.","Preliminary design/compliance aid only; not statutory approval."]})
 
 def parking_for_dwelling_units(unit_areas_sqm):
     ecs=sum(1.5 if a>150 else 1.25 if a>100 else 1.0 if a>50 else 0 for a in unit_areas_sqm)
