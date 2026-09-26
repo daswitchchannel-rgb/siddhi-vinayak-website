@@ -15,7 +15,7 @@ UPLOAD.mkdir(exist_ok=True)
 app = Flask(__name__, static_folder="static")
 MAX_UPLOAD_MB = int(os.environ.get("MAX_UPLOAD_MB", "25"))
 app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_MB * 1024 * 1024
-app.secret_key = os.environ.get("SECRET_KEY", secrets.token_hex(32))
+\n# Architecture/GIS engine\nfrom architecture_routes import architecture_bp\napp.register_blueprint(architecture_bp)\n\n@app.get("/architecture")\ndef architecture_ui():\n    return send_from_directory(app.static_folder, "architecture.html")\napp.secret_key = os.environ.get("SECRET_KEY", secrets.token_hex(32))
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "change-me")
 ALLOWED_EXT = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".mp4", ".webm", ".mov"}
 
