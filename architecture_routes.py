@@ -1,6 +1,7 @@
 from flask import Blueprint,request,jsonify,Response
 from architecture_engine import residential_rules,parking_for_dwelling_units,make_dxf_rectangles
 from gis_masterplan import point_info
+from cadastral_zoning import parcel_at, layer_status, CadastralLayerError
 architecture_bp=Blueprint("architecture",__name__,url_prefix="/api/architecture")
 @architecture_bp.post("/residential/check")
 def residential_check():
@@ -18,3 +19,19 @@ def masterplan_location():
  try: lon=float(request.args["lon"]); lat=float(request.args["lat"])
  except: return jsonify(error="lon and lat are required"),400
  return jsonify(point_info(lon,lat))
+
+@app.get("/cadastral/status")
+def cadastral_status():
+    return jsonify(layer_status())
+
+@app.get("/cadastral/point")
+def cadastral_point():
+    try:
+        lon=float(request.args["lon"]); lat=float(request.args["lat"])
+        return jsonify(parcel_at(lon, lat))
+    except KeyError:
+        return jsonify(error="lon and lat are required"), 400
+    except CadastralLayerError as exc:
+        return jsonify(status="NOT_READY", authoritative=False, error=str(exc)), 503
+    except ValueError:
+        return jsonify(error="lon and lat must be numeric"), 400
