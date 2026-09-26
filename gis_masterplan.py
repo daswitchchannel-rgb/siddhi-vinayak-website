@@ -3,9 +3,13 @@ AFFINE={"lon":[0.000140474219,0.0000158060023,77.2983061],"lat":[0.0000071873711
 def pixel_to_lonlat(x,y):
     a,b,c=AFFINE["lon"]; d,e,f=AFFINE["lat"]; return a*x+b*y+c,d*x+e*y+f
 def lonlat_to_pixel(lon,lat):
-    import numpy as np
-    M=np.array([[AFFINE["lon"][0],AFFINE["lon"][1]],[AFFINE["lat"][0],AFFINE["lat"][1]]]); v=np.array([lon-AFFINE["lon"][2],lat-AFFINE["lat"][2]])
-    x,y=np.linalg.solve(M,v); return float(x),float(y)
+    a,b=AFFINE["lon"][0],AFFINE["lon"][1]
+    d,e=AFFINE["lat"][0],AFFINE["lat"][1]
+    vx,vy=lon-AFFINE["lon"][2],lat-AFFINE["lat"][2]
+    det=a*e-b*d
+    x=(vx*e-b*vy)/det
+    y=(a*vy-vx*d)/det
+    return float(x),float(y)
 def point_info(lon,lat):
     x,y=lonlat_to_pixel(lon,lat)
     return {"longitude":lon,"latitude":lat,"source_pixel":{"x":round(x,2),"y":round(y,2)},"overlay":"MVDA Master Plan 2031","confidence":"reference","warning":"Raster position is a planning-map reference, not a legally verified zoning/cadastral determination."}
